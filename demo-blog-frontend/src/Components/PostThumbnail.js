@@ -21,10 +21,12 @@ const PostThumbnail = (props) => {
           </Card.Text>
         </Card.Body>
         <Card.Footer className="d-flex text-muted">
-          <div className="me-auto">{`${t("posted")}: ${
+          {/* <div className="me-auto">{`${t("posted")}: ${
             props.post.createdOn
-          }`}</div>
-          <div>{`${t("edited")}: ${props.post.updatedOn}`}</div>
+          }`}</div> */}
+          <div></div>
+          {/* <div>{`${t("edited")}: ${props.post.updatedOn}`}</div> */}
+          <div></div>
         </Card.Footer>
       </Card>
     </Link>

@@ -37,14 +37,14 @@ const Pages = (props) => {
       <Route
         path="/new-post"
         element={
-          authCtx.isLoggedIn ? (
+          // authCtx.isLoggedIn ? (
             <NewPostPage
               headerHeight={props.headerHeight}
               footerHeight={props.footerHeight}
             />
-          ) : (
-            <Navigate to="/" />
-          )
+          // ) : (
+          //   <Navigate to="/" />
+          // )
         }
       ></Route>
       <Route

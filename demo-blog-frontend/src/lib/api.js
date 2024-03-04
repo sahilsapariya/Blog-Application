@@ -1,4 +1,4 @@
-const BLOG_DOMAIN = "http://localhost:3000/api";
+const BLOG_DOMAIN = "http://localhost:8000/api";
 
 export const getAllPosts = async () => {
   const response = await fetch(`${BLOG_DOMAIN}/posts`);

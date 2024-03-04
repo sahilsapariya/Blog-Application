@@ -111,17 +111,17 @@ const PostPage = (props) => {
         {isPostUpdated && (
           <Banner
             className="text-success border-success mt-4"
-            message={`${t("updatedBy", { type: "post" })} ${authCtx.userName}`}
+            message={`${t("updatedBy", { type: "post" })} ${authCtx?.userName}`}
           />
         )}
         {isPostDeleted && (
           <Banner
             className="text-danger border-danger mt-4"
-            message={`${t("deleteBy", { type: "post" })} ${authCtx.userName}`}
+            message={`${t("deleteBy", { type: "post" })} ${authCtx?.userName}`}
           />
         )}
 
-        {(authCtx.isLoggedIn || comments.length > 0) && (
+        {(authCtx?.isLoggedIn || comments.length > 0) && (
           <div className="ms-2 mt-3 mb-2">
             <h5>{t("comments")}</h5>
           </div>
@@ -134,6 +134,8 @@ const PostPage = (props) => {
       </Col>
     );
   }
+
+  console.log(post)
 
   return (
     <Container>

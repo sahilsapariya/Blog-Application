@@ -17,6 +17,7 @@ const MainPage = (props) => {
     }, 1000);
   }, []);
 
+  console.log(posts)
   return (
     <Container>
       <Row
