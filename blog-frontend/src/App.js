@@ -1,17 +1,18 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Home from './components/pages/Home';
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Home from "./components/pages/Home";
+import Navbar from "./components/common/Navbar";
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />
-  },
-])
+
 
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" index element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

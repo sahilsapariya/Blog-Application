@@ -1,0 +1,33 @@
+// navbar css start
+nav {
+  width: calc(100% - 2rem);
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: black;
+  color: white;
+
+  ul {
+    display: flex;
+    align-items: center;
+
+    li {
+      list-style: none;
+      margin: 0 1rem;
+
+      a {
+        text-decoration: none;
+        cursor: pointer;
+        padding: 0.5rem 0.7rem;
+        border-radius: 50px;
+        color: white;
+      }
+      .active {
+        background: white;
+        color: black;
+      }
+    }
+  }
+}
+
+// navbar css end
