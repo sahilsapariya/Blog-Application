@@ -3,7 +3,6 @@ package com.example.blog.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 @Entity
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
     private String title;
     @Lob
@@ -20,12 +19,14 @@ public class Post {
     private LocalDate createdOn;
 
     public Post() {
+        this.createdOn = LocalDate.now();
     }
 
     public Post(String title, String content, LocalDate createdOn) {
         this.title = title;
         this.content = content;
         this.createdOn = createdOn;
+        this.createdOn = LocalDate.now();
     }
 
     public Long getId() {
