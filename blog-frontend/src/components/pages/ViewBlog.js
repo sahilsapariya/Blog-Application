@@ -11,11 +11,12 @@ const ViewBlog = () => {
 
   const [removePopupTrigger, setRemovePopupTrigger] = useState(false);
 
-  const { data: post, loading, error, deleteData } = useFetch(`${baseurl}/posts/${blogId}`);
-
-  if (loading) return <div>Loading...</div>;
-
-  if (error) return <div>Error: {error}</div>;
+  const {
+    data: post,
+    loading,
+    error,
+    deleteData
+  } = useFetch(`${baseurl}/posts/${blogId}`);
 
   const handleDelete = async () => {
     try {
@@ -27,6 +28,11 @@ const ViewBlog = () => {
       setRemovePopupTrigger(false);
     }
   };
+
+  
+  if (loading) return <div>Loading...</div>;
+
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <>
@@ -41,7 +47,10 @@ const ViewBlog = () => {
           </div>
           <hr />
           <div className="blog__controller">
-            <button>Edit</button>
+            <button onClick={() => navigate(`/blogs/${blogId}/edit`)}>
+              Edit
+            </button>
+
             <button
               style={{
                 backgroundColor: "red",
