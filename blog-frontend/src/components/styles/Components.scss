@@ -31,3 +31,21 @@ nav {
 }
 
 // navbar css end
+
+// footer css starts
+footer {
+  width: 100%;
+  background-color: black;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: larger;
+  
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+// footer css end
