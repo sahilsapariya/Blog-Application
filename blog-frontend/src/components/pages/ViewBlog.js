@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./../styles/Blog.scss";
 import Popup from "../common/Popup";
 import useFetch from "../../hook/useFetch";
@@ -7,17 +7,26 @@ import { baseurl } from "../../config";
 
 const ViewBlog = () => {
   const { blogId } = useParams();
+  const navigate = useNavigate();
+
   const [removePopupTrigger, setRemovePopupTrigger] = useState(false);
 
-  const { data: post, loading, error } = useFetch(`${baseurl}/posts/${blogId}`);
-
+  const { data: post, loading, error, deleteData } = useFetch(`${baseurl}/posts/${blogId}`);
 
   if (loading) return <div>Loading...</div>;
 
   if (error) return <div>Error: {error}</div>;
 
-
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    try {
+      await deleteData(`${baseurl}/posts/${blogId}`);
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+    } finally {
+      setRemovePopupTrigger(false);
+    }
+  };
 
   return (
     <>

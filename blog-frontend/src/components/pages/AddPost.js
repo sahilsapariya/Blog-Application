@@ -1,7 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import useFetch from "../../hook/useFetch";
+import { baseurl } from "../../config";
 
 const AddPost = () => {
-  const handleSubmit = (e) => {
+  const { postData } = useFetch(`${baseurl}/posts`);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
@@ -9,13 +15,17 @@ const AddPost = () => {
       content: e.target.content.value,
     };
 
-    console.log(data);
+    try {
+      await postData(`${baseurl}/posts`, data);
+      navigate("/");
+    } catch (error) {
+      console.error("Error adding post:", error);
+    }
   };
 
   return (
     <div className="form__container">
       <form onSubmit={handleSubmit}>
-
         <div className="form__group">
           <label htmlFor="title">Title</label>
           <input
