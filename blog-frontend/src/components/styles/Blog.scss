@@ -1,0 +1,39 @@
+.blog__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .blog__content {
+    width: min(70%, 700px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 2rem;
+
+    .blog__header {
+      margin-bottom: 1rem;
+      span {
+        font-size: smaller;
+        color: gray;
+      }
+    }
+
+    .blog__body {
+      margin-bottom: 1rem;
+    }
+
+    .blog__controller {
+      display: flex;
+      justify-content: flex-end;
+      margin: 1rem 0;
+
+      button {
+        margin-left: 1rem;
+        padding: 0.5rem 1.5rem;
+        border: 1px solid #000;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+    }
+  }
+}

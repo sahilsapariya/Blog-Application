@@ -3,6 +3,7 @@ import Home from "./components/pages/Home";
 import Navbar from "./components/common/Navbar";
 import Footer from "./components/common/Footer";
 import AddPost from "./components/pages/AddPost";
+import ViewBlog from "./components/pages/ViewBlog";
 
 
 
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" index element={<Home />} />
           <Route path="/add-blog" exact element={<AddPost />} />
+          <Route path="/blogs/:blogId" exact element={<ViewBlog />} />
         </Routes>
         <Footer />
       </BrowserRouter>

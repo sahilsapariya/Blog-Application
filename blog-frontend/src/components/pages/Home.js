@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/Home.scss";
 import { posts } from "../../data/data";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -21,8 +22,10 @@ const BlogList = ({ blogs }) => {
 };
 
 const BlogCard = ({ blog }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="blog__card">
+    <div className="blog__card" onClick={() => navigate(`blogs/${blog.id}`)}>
       <div className="blog__header">
         <h2>{blog.title}</h2>
         <span>{blog.createdOn}</span>
