@@ -37,6 +37,7 @@ footer {
   width: 100%;
   background-color: black;
   display: flex;
+  padding: 1rem 0;
   justify-content: center;
   align-items: center;
   font-size: larger;
@@ -83,7 +84,7 @@ footer {
         border-radius: 5px;
         border: 1px solid;
         outline: none;
-        font-family: 'Poppins';
+        font-family: "Poppins";
       }
 
       textarea {
