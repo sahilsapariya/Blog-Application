@@ -1,9 +1,17 @@
 import React from "react";
 import "../styles/Home.scss";
-import { posts } from "../../data/data";
-import { Link, useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
+import useFetch from "../../hook/useFetch";
+import { baseurl } from "../../config";
 
 const Home = () => {
+  const { data: posts, loading, error } = useFetch(`${baseurl}/posts`);
+
+  if (loading) return <div>Loading...</div>;
+
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <div className="home__container">
       <BlogList blogs={posts} />

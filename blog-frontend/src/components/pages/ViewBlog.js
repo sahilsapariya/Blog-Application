@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import "./../styles/Blog.scss";
 import Popup from "../common/Popup";
+import useFetch from "../../hook/useFetch";
+import { baseurl } from "../../config";
 
 const ViewBlog = () => {
   const { blogId } = useParams();
   const [removePopupTrigger, setRemovePopupTrigger] = useState(false);
 
-  const post = {
-    id: 4,
-    title: "Post 4",
-    content:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-    createdOn: "2021-08-01",
-  };
+  const { data: post, loading, error } = useFetch(`${baseurl}/posts/${blogId}`);
+
+
+  if (loading) return <div>Loading...</div>;
+
+  if (error) return <div>Error: {error}</div>;
+
 
   const handleDelete = () => {};
 
@@ -22,11 +24,11 @@ const ViewBlog = () => {
       <div className="blog__container">
         <div className="blog__content">
           <div className="blog__header">
-            <h1>{post.title}</h1>
-            <span>Blog Created : {post.createdOn}</span>
+            <h1>{post?.title}</h1>
+            <span>Blog Created : {post?.createdOn}</span>
           </div>
           <div className="blog__body">
-            <p>{post.content}</p>
+            <p>{post?.content}</p>
           </div>
           <hr />
           <div className="blog__controller">
