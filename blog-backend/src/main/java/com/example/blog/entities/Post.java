@@ -1,13 +1,17 @@
 package com.example.blog.entities;
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
+import java.util.List;
+
 
 @Entity
 public class Post {
@@ -19,6 +23,18 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String content;
     private LocalDate createdOn;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Comment> comments;    
+
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Post() {
         this.createdOn = LocalDate.now();

@@ -3,6 +3,7 @@ package com.example.blog.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.blog.entities.Post;
+import com.example.blog.entities.PostWithComments;
 import com.example.blog.service.PostServices;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class PostController {
     }
     
     @GetMapping("posts/{postId}")
-    public Post getPost(@PathVariable long postId) {
+    public PostWithComments getPost(@PathVariable long postId) {
         return this.postServices.getPost(postId);
     }
     

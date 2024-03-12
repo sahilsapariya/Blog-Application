@@ -5,14 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.blog.dao.CommentDao;
 import com.example.blog.dao.PostDao;
+import com.example.blog.entities.Comment;
 import com.example.blog.entities.Post;
+import com.example.blog.entities.PostWithComments;
 
 @Service
 public class PostServiceImpl implements PostServices {
 
     @Autowired
     private PostDao postDao;
+
+    @Autowired
+    private CommentDao commentDao;
 
     public PostServiceImpl() {
         
@@ -24,13 +30,20 @@ public class PostServiceImpl implements PostServices {
     }
 
     @Override
-    public Post getPost(long postId) {
-        List<Post> posts = postDao.findAll();
+    public PostWithComments getPost(long postId) {
+        // List<Post> posts = postDao.findAll();
 
-        for (Post post : posts) {
-            if (post.getId() == postId) {
-                return post;
-            }
+        // for (Post post : posts) {
+        //     if (post.getId() == postId) {
+        //         return post;
+        //     }
+        // }
+        // return null;
+
+        Post post = postDao.findById(postId).orElse(null);
+        if (post != null) {
+            List<Comment> comments = commentDao.findByPost(post);
+            return new PostWithComments(post, comments);
         }
         return null;
     }
@@ -55,8 +68,6 @@ public class PostServiceImpl implements PostServices {
 
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-    }
-    
+    }    
 }
