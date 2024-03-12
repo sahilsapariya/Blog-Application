@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hook/useFetch";
 import { baseurl } from "../../config";
+import { message } from "antd";
 
 const AddPost = () => {
   const { postData } = useFetch(`${baseurl}/posts`);
@@ -14,6 +15,15 @@ const AddPost = () => {
       title: e.target.title.value,
       content: e.target.content.value,
     };
+
+    if (!data.title) {
+      message.error("Title is required");
+      return;
+    }
+    if (!data.content) {
+      message.error("Content is required");
+      return;
+    }
 
     try {
       await postData(`${baseurl}/posts`, data);

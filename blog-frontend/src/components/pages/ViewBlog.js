@@ -4,6 +4,7 @@ import "./../styles/Blog.scss";
 import Popup from "../common/Popup";
 import useFetch from "../../hook/useFetch";
 import { baseurl } from "../../config";
+import { message } from "antd";
 
 const ViewBlog = () => {
   const { blogId } = useParams();
@@ -31,6 +32,10 @@ const ViewBlog = () => {
   };
 
   const handleCommentAdd = async () => {
+    if (!currentComment) {
+      message.error("Please add comment");
+      return;
+    }
     try {
       await postData(`${baseurl}/comments`, {
         post: blogId,
@@ -44,11 +49,22 @@ const ViewBlog = () => {
     }
   };
 
-  const formattedContent = post?.content.split("\n").map((paragraph, index) => (
-    <p key={index} style={{ padding: "0.5rem 0" }}>
-      {paragraph}
-    </p>
-  ));
+  const handleDeleteComment = async (id) => {
+    try {
+      await deleteData(`${baseurl}/comments/${id}`);
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    } finally {
+      fetchData(`${baseurl}/posts/${blogId}`);
+    }
+  };
+
+  const formattedContent =
+    post?.content?.split("\n").map((paragraph, index) => (
+      <p key={index} style={{ padding: "0.5rem 0" }}>
+        {paragraph}
+      </p>
+    )) || null;
 
   if (loading) return <div>Loading...</div>;
 
@@ -88,8 +104,13 @@ const ViewBlog = () => {
               {comments?.map((comment, index) => {
                 return (
                   <div key={index} className="comment__container">
-                    <p className="content">{comment.comment}</p>
-                    <p className="date">Created on : {comment.createdOn}</p>
+                    <p className="content">{comment?.comment}</p>
+                    <div className="date">
+                      <p>Created on : {comment?.createdOn}</p>
+                      <button onClick={() => handleDeleteComment(comment?.id)}>
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 );
               })}

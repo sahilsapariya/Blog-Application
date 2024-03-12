@@ -1,5 +1,6 @@
 .blog__container {
   width: 100%;
+  min-height: calc(100vh - 128px);
   display: flex;
   justify-content: center;
 
@@ -7,7 +8,6 @@
     width: min(70%, 700px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     margin-top: 2rem;
 
     .blog__header {
@@ -32,10 +32,11 @@
       flex-direction: column;
 
       textarea {
-        font-family: 'Poppins';
+        font-family: "Poppins";
         padding: 0.5rem;
         border: 1px solid #000;
         border-radius: 2px;
+        resize: vertical;
       }
       button {
         width: fit-content;
@@ -62,10 +63,25 @@
       }
 
       .date {
-        font-size: small;
-        color: gray;
-        padding-top: 0.5rem;
-        font-style: italic;
+        display: flex;
+        justify-content: space-between;
+
+        p {
+          font-size: small;
+          color: gray;
+          padding-top: 0.5rem;
+          font-style: italic;
+        }
+
+        button {
+          font-size: small;
+          padding: 0 0.5rem;
+          background: black;
+          color: white;
+          border: none;
+          border-radius: 2px;
+          cursor: pointer;
+        }
       }
     }
 

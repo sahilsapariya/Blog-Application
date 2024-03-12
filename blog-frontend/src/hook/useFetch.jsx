@@ -93,8 +93,6 @@ const useFetch = (url) => {
         throw new Error("Network response was not ok");
       }
 
-      const result = await response.json();
-      setData(result);
     } catch (error) {
       setError(error);
     } finally {
