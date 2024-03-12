@@ -10,13 +10,14 @@ const ViewBlog = () => {
   const navigate = useNavigate();
 
   const [removePopupTrigger, setRemovePopupTrigger] = useState(false);
+  const [currentComment, setCurrentComment] = useState(null);
 
-  const {
-    data: post,
-    loading,
-    error,
-    deleteData
-  } = useFetch(`${baseurl}/posts/${blogId}`);
+  const { data, loading, error, deleteData, postData, fetchData } = useFetch(
+    `${baseurl}/posts/${blogId}`
+  );
+
+  var post = data?.post;
+  var comments = data?.comments;
 
   const handleDelete = async () => {
     try {
@@ -29,7 +30,26 @@ const ViewBlog = () => {
     }
   };
 
-  
+  const handleCommentAdd = async () => {
+    try {
+      await postData(`${baseurl}/comments`, {
+        post: blogId,
+        comment: currentComment,
+      });
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    } finally {
+      setCurrentComment(null);
+      fetchData(`${baseurl}/posts/${blogId}`);
+    }
+  };
+
+  const formattedContent = post?.content.split("\n").map((paragraph, index) => (
+    <p key={index} style={{ padding: "0.5rem 0" }}>
+      {paragraph}
+    </p>
+  ));
+
   if (loading) return <div>Loading...</div>;
 
   if (error) return <div>Error: {error}</div>;
@@ -43,12 +63,42 @@ const ViewBlog = () => {
             <span>Blog Created : {post?.createdOn}</span>
           </div>
           <div className="blog__body">
-            <p>{post?.content}</p>
+            <p>{formattedContent}</p>
           </div>
+          <hr />
+
+          <h3>Comments</h3>
+          <div className="add_comment__container">
+            <textarea
+              value={currentComment}
+              rows={5}
+              placeholder="Add a comment..."
+              onChange={(e) => setCurrentComment(e.target.value)}
+            ></textarea>
+            <button onClick={() => handleCommentAdd()}>Add comment</button>
+          </div>
+          {comments?.length === 0 ? (
+            <>
+              <p style={{ fontSize: "smaller", margin: "1rem 0" }}>
+                No other comments yet
+              </p>
+            </>
+          ) : (
+            <div>
+              {comments?.map((comment, index) => {
+                return (
+                  <div key={index} className="comment__container">
+                    <p className="content">{comment.comment}</p>
+                    <p className="date">Created on : {comment.createdOn}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
           <hr />
           <div className="blog__controller">
             <button onClick={() => navigate(`/blogs/${blogId}/edit`)}>
-              Edit
+              Edit Blog
             </button>
 
             <button
@@ -58,7 +108,7 @@ const ViewBlog = () => {
               }}
               onClick={() => setRemovePopupTrigger(true)}
             >
-              Delete
+              Delete Blog
             </button>
           </div>
         </div>

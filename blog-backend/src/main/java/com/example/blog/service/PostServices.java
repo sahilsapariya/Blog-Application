@@ -8,7 +8,8 @@ import com.example.blog.entities.PostWithComments;
 
 public interface PostServices {
     public List<Post> getPosts();
-    public PostWithComments getPost(long postId);
+    public PostWithComments getPostWithComments(long postId);
+    public Post getPost(long postId);
     public Post addPost(Post post);
     public Post updatePost(Post post);
     public void deletePost(long postId);

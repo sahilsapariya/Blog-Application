@@ -1,7 +1,6 @@
 package com.example.blog.entities;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,7 +22,7 @@ public class Comment {
 
 
     @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime createdOn;
+    private LocalDate createdOn;
     
     @ManyToOne
     @JoinColumn(name = "post_id")
@@ -31,13 +30,13 @@ public class Comment {
     private Post post;
 
     public Comment() {
-        this.createdOn = LocalDateTime.now();
+        this.createdOn = LocalDate.now();
     }
 
     public Comment(long id, String comment, LocalDate createdOn, Post post) {
         this.id = id;
         this.comment = comment;
-        this.createdOn = LocalDateTime.now();
+        this.createdOn = LocalDate.now();
         this.post = post;
     }
 
@@ -57,11 +56,11 @@ public class Comment {
         this.comment = comment;
     }
 
-    public LocalDateTime getCreatedOn() {
+    public LocalDate getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(LocalDateTime createdOn) {
+    public void setCreatedOn(LocalDate createdOn) {
         this.createdOn = createdOn;
     }
 

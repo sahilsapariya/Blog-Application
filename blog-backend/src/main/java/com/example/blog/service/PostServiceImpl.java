@@ -21,7 +21,7 @@ public class PostServiceImpl implements PostServices {
     private CommentDao commentDao;
 
     public PostServiceImpl() {
-        
+
     }
 
     @Override
@@ -30,22 +30,16 @@ public class PostServiceImpl implements PostServices {
     }
 
     @Override
-    public PostWithComments getPost(long postId) {
-        // List<Post> posts = postDao.findAll();
+    public Post getPost(long postId) {
+        List<Post> posts = postDao.findAll();
 
-        // for (Post post : posts) {
-        //     if (post.getId() == postId) {
-        //         return post;
-        //     }
-        // }
-        // return null;
-
-        Post post = postDao.findById(postId).orElse(null);
-        if (post != null) {
-            List<Comment> comments = commentDao.findByPost(post);
-            return new PostWithComments(post, comments);
+        for (Post post : posts) {
+            if (post.getId() == postId) {
+                return post;
+            }
         }
         return null;
+
     }
 
     @Override
@@ -69,5 +63,16 @@ public class PostServiceImpl implements PostServices {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }    
+    }
+
+    @Override
+    public PostWithComments getPostWithComments(long postId) {
+
+        Post post = postDao.findById(postId).orElse(null);
+        if (post != null) {
+            List<Comment> comments = commentDao.findByPost(post);
+            return new PostWithComments(post, comments);
+        }
+        return null;
+    }
 }

@@ -6,19 +6,27 @@ import { baseurl } from "../../config";
 const UpdatePost = () => {
   const { blogId } = useParams();
   const {
-    data: post,
+    data,
     loading,
     error,
     putData: updateData,
   } = useFetch(`${baseurl}/posts/${blogId}`);
 
+  var post = data?.post;
+
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState(post);
+  const [formData, setFormData] = useState();
 
   useEffect(() => {
-    setFormData(post);
-  }, [post]);
+    setFormData({
+      title: post?.title,
+      content: post?.content,
+      id: post?.id,
+      createdOn: post?.createdOn,
+      comments: data?.comments,
+    });
+  }, [data]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,7 +36,7 @@ const UpdatePost = () => {
     e.preventDefault();
 
     try {
-      await updateData(`${baseurl}/posts`, formData);
+      await updateData(`${baseurl}/posts/${blogId}`, formData);
       navigate(`/blogs/${blogId}`);
     } catch (error) {
       console.error("Error adding post:", error);
